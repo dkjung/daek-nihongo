@@ -1,0 +1,8 @@
+sentences:
+  - japanese: 朝から怪獣と戦ってて、疲れたよ。
+    meaning: 아침부터 괴수와 싸우고 있어서 피곤해.
+    reading: あさからかいじゅうとたたかってて、つかれたよ。
+    words:
+      - japanese: 怪獣
+        meaning: 괴수
+        reading: かいじゅう

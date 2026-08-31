@@ -1,0 +1,16 @@
+{
+  "sentences": [
+    {
+      "japanese": "今日は早く寝ます。",
+      "meaning": "오늘은 일찍 잘게요.",
+      "reading": "きょうははやくねます。",
+      "words": [
+        {
+          "japanese": "早く",
+          "meaning": "일찍",
+          "reading": "はやく"
+        }
+      ]
+    }
+  ]
+}

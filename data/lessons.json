@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-01T00:00:00.000Z",
+  "sentences": [
+    {
+      "id": "sent-birthday",
+      "japanese": "二十歳の誕生日、楽しみです。",
+      "meaning": "스무 살 생일이 기대돼요.",
+      "reading": "はたちのたんじょうび、たのしみです。",
+      "note": "二十歳는 はたち로 읽는다.",
+      "words": [
+        { "id": "word-hatachi", "japanese": "二十歳", "meaning": "스무 살", "reading": "はたち", "note": "스무 살의 고유 읽기" },
+        { "id": "word-tanjobi", "japanese": "誕生日", "meaning": "생일", "reading": "たんじょうび", "note": "" }
+      ],
+      "createdAt": "2026-09-01T00:00:00.000Z",
+      "updatedAt": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "id": "sent-mailbox",
+      "japanese": "昔は便箋と切手を買って、一日かけて書いてから、やっと郵便箱に入れたのよ。",
+      "meaning": "옛날에는 편지지와 우표를 사서 하루 동안 공들여 쓴 뒤, 겨우 우편함에 넣었단다.",
+      "reading": "むかしはびんせんときってをかって、いちにちかけてかいてから、やっとゆうびんばこにいれたのよ。",
+      "note": "一日かけて: 하루를 들여, 하루 동안 공들여.",
+      "words": [
+        { "id": "word-binsen", "japanese": "便箋", "meaning": "편지지", "reading": "びんせん", "note": "" },
+        { "id": "word-kitte", "japanese": "切手", "meaning": "우표", "reading": "きって", "note": "" },
+        { "id": "word-yubinbako", "japanese": "郵便箱", "meaning": "우편함", "reading": "ゆうびんばこ", "note": "" }
+      ],
+      "createdAt": "2026-09-01T00:00:00.000Z",
+      "updatedAt": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "id": "sent-delivery",
+      "japanese": "台風の影響で、配送が遅れました。",
+      "meaning": "태풍의 영향으로 배송이 늦어졌습니다.",
+      "reading": "たいふうのえいきょうで、はいそうがおくれました。",
+      "note": "공식 안내문에서는 せいで보다 影響で가 더 적절하다.",
+      "words": [
+        { "id": "word-taifu", "japanese": "台風", "meaning": "태풍", "reading": "たいふう", "note": "" },
+        { "id": "word-eikyo", "japanese": "影響", "meaning": "영향", "reading": "えいきょう", "note": "" },
+        { "id": "word-haiso", "japanese": "配送", "meaning": "배송", "reading": "はいそう", "note": "" }
+      ],
+      "createdAt": "2026-09-01T00:00:00.000Z",
+      "updatedAt": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "id": "sent-kaiju",
+      "japanese": "朝から怪獣と戦ってて、疲れたよ。",
+      "meaning": "아침부터 괴수와 싸우고 있어서 피곤해.",
+      "reading": "あさからかいじゅうとたたかってて、つかれたよ。",
+      "note": "戦ってて는 戦っていて의 회화체.",
+      "words": [
+        { "id": "word-kaiju", "japanese": "怪獣", "meaning": "괴수", "reading": "かいじゅう", "note": "장음 う 주의" },
+        { "id": "word-tatakau", "japanese": "戦う", "meaning": "싸우다", "reading": "たたかう", "note": "" }
+      ],
+      "createdAt": "2026-09-01T00:00:00.000Z",
+      "updatedAt": "2026-09-01T00:00:00.000Z"
+    }
+  ]
+}

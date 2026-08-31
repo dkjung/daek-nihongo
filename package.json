@@ -1,0 +1,21 @@
+{
+  "name": "daek-nihongo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Static Japanese study library with a Git-backed CLI.",
+  "bin": {
+    "nihongo": "./bin/nihongo.mjs"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check app.js && node --check bin/nihongo.mjs && node --check lib/content.mjs",
+    "serve": "python3 -m http.server 4173"
+  },
+  "dependencies": {
+    "yaml": "^2.7.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
