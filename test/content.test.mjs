@@ -1,5 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { mergeSentences, normalizeSentence, parseImportDocument, validateDataset } from '../lib/content.mjs';
 
 const sample = { japanese: '台風の影響で、配送が遅れました。', meaning: '태풍의 영향으로 배송이 늦어졌습니다.', reading: 'たいふうのえいきょうで、はいそうがおくれました。', words: [{ japanese: '配送', meaning: '배송', reading: 'はいそう' }] };
@@ -33,4 +36,11 @@ test('keeps a matching word ID when words are reordered', () => {
   const updated = { ...existing, words: [{ japanese: '台風', meaning: '태풍', reading: 'たいふう' }, { japanese: '配送', meaning: '배송', reading: 'はいそう' }] };
   const normalized = normalizeSentence(updated, existing);
   assert.deepEqual(normalized.words.map((word) => word.id), ['word-typhoon', 'word-delivery']);
+});
+
+test('CLI validates an empty published dataset', () => {
+  const directory = path.dirname(fileURLToPath(import.meta.url));
+  const fixture = path.join(directory, 'fixtures', 'empty-dataset.json');
+  const output = execFileSync(process.execPath, ['bin/nihongo.mjs', 'validate', fixture], { cwd: path.join(directory, '..'), encoding: 'utf8' });
+  assert.match(output, /검증 완료: 문장 0개/);
 });

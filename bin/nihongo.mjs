@@ -47,8 +47,10 @@ try {
 
   if (command === 'validate') {
     const file = requireValue(rest[0], '파일');
-    const incoming = parseImportDocument(await readInput(file));
-    console.log(`검증 완료: 문장 ${incoming.length}개`);
+    const document = await readInput(file);
+    if (document?.schemaVersion) validateDataset(document);
+    else parseImportDocument(document);
+    console.log(`검증 완료: 문장 ${document.sentences?.length || 0}개`);
   } else if (command === 'import') {
     const file = requireValue(rest[0], '파일');
     const dryRun = rest.includes('--dry-run');
