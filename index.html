@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="일본어 문장과 단어를 복습하는 공개 학습 보관함" />
+    <title>ことば 노트</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="ことば 노트 처음으로">
+          <span class="brand-mark">こ</span>
+          <span><strong>ことば 노트</strong></span>
+        </a>
+      </header>
+
+      <nav class="tabs" aria-label="학습 메뉴">
+        <button class="tab active" data-view="library">문장 보관함 <b id="sentenceCount">0</b></button>
+        <button class="tab" data-view="quiz">퀴즈</button>
+      </nav>
+
+      <section class="view" id="libraryView" aria-label="문장 보관함">
+        <div class="library-tools">
+          <label class="search"><span class="sr-only">문장 검색</span><input id="searchInput" type="search" placeholder="일본어, 뜻, 단어 검색" /></label>
+        </div>
+        <p id="resultLabel" class="result-label" aria-live="polite"></p>
+        <div class="entry-list" id="entryList"></div>
+        <div id="emptyState" class="empty-state hidden"><span>ことば</span><h3>아직 등록된 문장이 없습니다.</h3><p>관리 CLI로 학습 파일을 가져오면 이곳에 표시됩니다.</p></div>
+      </section>
+
+      <section class="view hidden" id="quizView" aria-label="퀴즈">
+        <div class="library-tools"><span class="quiz-meta" id="quizMeta"></span></div>
+        <article class="quiz-card" id="quizCard"></article>
+      </section>
+    </main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
