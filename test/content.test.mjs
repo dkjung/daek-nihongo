@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mergeSentences, parseImportDocument, validateDataset } from '../lib/content.mjs';
+import { mergeSentences, normalizeSentence, parseImportDocument, validateDataset } from '../lib/content.mjs';
 
 const sample = { japanese: '台風の影響で、配送が遅れました。', meaning: '태풍의 영향으로 배송이 늦어졌습니다.', reading: 'たいふうのえいきょうで、はいそうがおくれました。', words: [{ japanese: '配送', meaning: '배송', reading: 'はいそう' }] };
 
@@ -20,4 +20,17 @@ test('merges new sentences and skips canonical duplicates', () => {
 test('rejects duplicate sentences in a dataset', () => {
   const [sentence] = parseImportDocument({ sentences: [sample] });
   assert.throws(() => validateDataset({ sentences: [sentence, { ...sentence, id: 'another-id' }] }), /중복 문장/);
+});
+
+test('rejects a caller-supplied sentence ID collision during import', () => {
+  const [existing] = parseImportDocument({ sentences: [{ ...sample, id: 'sent-existing' }] });
+  const [incoming] = parseImportDocument({ sentences: [{ ...sample, japanese: '今日は早く寝ます。', meaning: '오늘은 일찍 잘게요.', id: 'sent-existing' }] });
+  assert.throws(() => mergeSentences({ sentences: [existing] }, [incoming]), /중복 문장 ID/);
+});
+
+test('keeps a matching word ID when words are reordered', () => {
+  const [existing] = parseImportDocument({ sentences: [{ ...sample, id: 'sent-sample', words: [{ id: 'word-delivery', japanese: '配送', meaning: '배송', reading: 'はいそう' }, { id: 'word-typhoon', japanese: '台風', meaning: '태풍', reading: 'たいふう' }] }] });
+  const updated = { ...existing, words: [{ japanese: '台風', meaning: '태풍', reading: 'たいふう' }, { japanese: '配送', meaning: '배송', reading: 'はいそう' }] };
+  const normalized = normalizeSentence(updated, existing);
+  assert.deepEqual(normalized.words.map((word) => word.id), ['word-typhoon', 'word-delivery']);
 });

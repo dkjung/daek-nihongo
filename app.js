@@ -1,3 +1,5 @@
+import { buildQuizQueue } from './lib/quiz.mjs';
+
 const state = { data: null, filtered: [], quizQueue: [], quizIndex: 0, answered: false };
 const $ = (id) => document.getElementById(id);
 const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;' }[char]));
@@ -12,20 +14,14 @@ function shuffled(items) { return [...items].sort(() => Math.random() - 0.5); }
 function renderLibrary() {
   const entries = state.filtered;
   $('sentenceCount').textContent = state.data.sentences.length;
-  $('resultLabel').textContent = entries.length === state.data.sentences.length ? `문장 ${entries.length}개` : `검색 결과 ${entries.length}개`;
-  $('entryList').innerHTML = entries.map((entry, index) => `<article class="entry-card"><div class="entry-top"><span class="entry-number">${String(index + 1).padStart(2, '0')} / ${entry.id}</span></div><h3>${escapeHtml(entry.japanese)}</h3>${entry.reading ? `<p class="reading">${escapeHtml(entry.reading)}</p>` : ''}<p class="meaning">${escapeHtml(entry.meaning)}</p><div class="word-list">${entry.words.map((word) => `<span class="word">${escapeHtml(word.japanese)} · ${escapeHtml(word.meaning)}</span>`).join('')}</div>${entry.note ? `<p class="note">${escapeHtml(entry.note)}</p>` : ''}</article>`).join('');
+  $('resultLabel').textContent = entries.length === state.data.sentences.length ? '' : `검색 결과 ${entries.length}개`;
+  $('entryList').innerHTML = entries.map((entry) => `<article class="entry-card"><h3>${escapeHtml(entry.japanese)}</h3>${entry.reading ? `<p class="reading">${escapeHtml(entry.reading)}</p>` : ''}<p class="meaning">${escapeHtml(entry.meaning)}</p><div class="word-list">${entry.words.map((word) => `<span class="word">${escapeHtml(word.japanese)} · ${escapeHtml(word.meaning)}</span>`).join('')}</div>${entry.note ? `<p class="note">${escapeHtml(entry.note)}</p>` : ''}</article>`).join('');
   $('entryList').classList.toggle('hidden', entries.length === 0);
   $('emptyState').classList.toggle('hidden', entries.length !== 0);
 }
 
 function makeQuizQueue() {
-  const sentences = state.data.sentences;
-  const words = allWords();
-  const queue = [];
-  if (sentences.length > 1) queue.push(...sentences.map((entry) => ({ type: 'meaning', entry })));
-  if (sentences.some((entry) => entry.reading)) queue.push(...sentences.filter((entry) => entry.reading).map((entry) => ({ type: 'reading', entry })));
-  queue.push(...sentences.map((entry) => ({ type: 'recall', entry })));
-  if (words.length > 1) queue.push(...words.map((word) => ({ type: 'word', word })));
+  const queue = buildQuizQueue(state.data);
   state.quizQueue = shuffled(queue).slice(0, Math.min(10, queue.length));
   state.quizIndex = 0;
 }
@@ -33,7 +29,11 @@ function makeQuizQueue() {
 function renderQuiz() {
   if (!state.quizQueue.length) makeQuizQueue();
   const question = state.quizQueue[state.quizIndex];
-  if (!question) { makeQuizQueue(); return renderQuiz(); }
+  if (!question) {
+    $('quizMeta').textContent = '';
+    $('quizCard').innerHTML = '<p class="quiz-result">퀴즈를 만들 문장이 없습니다.</p>';
+    return;
+  }
   state.answered = false;
   $('quizMeta').textContent = `${state.quizIndex + 1} / ${state.quizQueue.length}`;
   if (question.type === 'meaning') return renderChoiceQuestion(question.entry.japanese, question.entry.meaning, state.data.sentences.map((entry) => entry.meaning), '문장 뜻');
