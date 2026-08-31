@@ -10,6 +10,7 @@
   "scripts": {
     "test": "node --test",
     "check": "node --check app.js && node --check bin/nihongo.mjs && node --check lib/content.mjs && node --check lib/quiz.mjs",
+    "build": "node scripts/build-static.mjs",
     "serve": "python3 -m http.server 4173"
   },
   "dependencies": {

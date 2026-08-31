@@ -29,6 +29,7 @@ jobs:
       - run: npm run check
       - run: npm test
       - run: node bin/nihongo.mjs validate data/lessons.json
+      - run: npm run build
 
   deploy:
     if: github.event_name != 'pull_request'
@@ -42,6 +43,6 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
